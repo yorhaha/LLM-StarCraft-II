@@ -38,7 +38,6 @@ def agent_test(agent, env):
             break
 
 
-
 def real_time_test(args):
     # 初始化环境
     selector = StarCraftEnvSelector(args)
@@ -55,42 +54,45 @@ def real_time_test(args):
     example_prompt = [example_input_prompt.format(K_1=9), example_output_prompt]
 
     # 创建并测试agent
-    if args.agent_type == 'qwen':
+    if args.agent_type == "qwen":
 
-        agent = Qwen_vs_Human_Agent(
-                            system_prompt, example_prompt,
-                            args, action_description)
+        agent = Qwen_vs_Human_Agent(system_prompt, example_prompt, args, action_description)
         agent_test(agent, env)
     else:
         raise ValueError(f"Unknown agent type: {args.agent_type}")
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='StarCraft II environment testing tool.')
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="StarCraft II environment testing tool.")
 
-    parser.add_argument('--num_agents', type=str, default='Human',
-                        help='In human vs LLM agent, we set as Human.')
+    parser.add_argument("--num_agents", type=str, default="Human", help="In human vs LLM agent, we set as Human.")
 
-    parser.add_argument('--env_type', type=str, default='text', help='Environment type.')
+    parser.add_argument("--env_type", type=str, default="text", help="Environment type.")
 
-    parser.add_argument('--map_pool', type=list, default=LADDER_MAP_2023, help='List of maps for the game.')
+    parser.add_argument("--map_pool", type=list, default=LADDER_MAP_2023, help="List of maps for the game.")
 
-    parser.add_argument('--map_idx', type=int, default=1, help='Index of the map to use from the map pool.')
+    parser.add_argument("--map_idx", type=int, default=1, help="Index of the map to use from the map pool.")
 
-    parser.add_argument('--Human_race', type=str, default='Zerg',
-                        help='The Human player race. Use "Protoss" or "Zerg". ')
+    parser.add_argument("--Human_race", type=str, default="Zerg", help='The Human player race. Use "Protoss" or "Zerg". ')
 
-    parser.add_argument('--player_race', type=str, default='Protoss',
-                        help='The llm agent Player race. Use "Protoss" or "Zerg". ')
+    parser.add_argument(
+        "--player_race", type=str, default="Protoss", help='The llm agent Player race. Use "Protoss" or "Zerg". '
+    )
 
-    parser.add_argument('--current_time', type=str, default=datetime.now().strftime('%Y%m%d_%H%M%S'),
-                        help='Current time. Default is current system time.')
+    parser.add_argument(
+        "--current_time",
+        type=str,
+        default=datetime.now().strftime("%Y%m%d_%H%M%S"),
+        help="Current time. Default is current system time.",
+    )
 
-    parser.add_argument('--agent_type', type=str, default="qwen",
-                        help='The LLM Agent type. Use "random" or "llama2" or "glm2" or "chatgpt,"qwen"')
+    parser.add_argument(
+        "--agent_type",
+        type=str,
+        default="qwen",
+        help='The LLM Agent type. Use "random" or "llama2" or "glm2" or "chatgpt,"qwen"',
+    )
 
-
-    parser.add_argument('--real_time', type=bool, default=True, help='In Human vs ai, please always set True')
+    parser.add_argument("--real_time", type=bool, default=True, help="In Human vs ai, please always set True")
     args = parser.parse_args()
     real_time_test(args)
-

@@ -11,6 +11,7 @@ from sc2_rl_agent.starcraftenv_test.agent.qwen_7b_agent import Qwen7bAgent
 from sc2_rl_agent.starcraftenv_test.agent.llama2_agent import Llama2_Agent
 from sc2_rl_agent.starcraftenv_test.agent.APU_agent import APUAgent
 
+
 def agent_test(agent, env, args=None):
     """
     通用的代理测试函数
@@ -50,13 +51,17 @@ def random_worker(input_args):
     example_prompt = [example_input_prompt, example_output_prompt]
 
     # 创建并测试random agent
-    random_agent = RandomAgent(model_name=args.LLM_model_name, api_key=args.LLM_api_key,
-                               api_base=args.LLM_api_base, system_prompt=system_prompt,
-                               temperature=args.LLM_temperature, example_prompt=example_prompt,
-                               args=args, action_description=action_description)
+    random_agent = RandomAgent(
+        model_name=args.LLM_model_name,
+        api_key=args.LLM_api_key,
+        api_base=args.LLM_api_base,
+        system_prompt=system_prompt,
+        temperature=args.LLM_temperature,
+        example_prompt=example_prompt,
+        args=args,
+        action_description=action_description,
+    )
     agent_test(random_agent, env)
-
-
 
 
 def chatgpt_worker(input_args):
@@ -74,18 +79,23 @@ def chatgpt_worker(input_args):
 
     # 假设这些参数和设置对于random agent仍然有用
     # sc2prompt = StarCraftIIPrompt_old(race=args.player_race, K="5", action_dict=action_dict)# prompt version old 旧版prompt
-    sc2prompt = StarCraftIIPrompt_V4(race=args.player_race, K="5", action_dict=action_dict)# prompt version 4
+    sc2prompt = StarCraftIIPrompt_V4(race=args.player_race, K="5", action_dict=action_dict)  # prompt version 4
     system_prompt, example_input_prompt, example_output_prompt = sc2prompt.generate_prompts()
     example_input_prompt.format(K_1=4)
     example_prompt = [example_input_prompt, example_output_prompt]
 
     # 创建并测试chatgpt agent
-    gpt_agent = ChatGPTAgent(model_name=args.LLM_model_name, api_key=args.LLM_api_key,
-                             api_base=args.LLM_api_base, system_prompt=system_prompt,
-                             temperature=args.LLM_temperature, example_prompt=example_prompt,
-                             args=args, action_description=action_description)
+    gpt_agent = ChatGPTAgent(
+        model_name=args.LLM_model_name,
+        api_key=args.LLM_api_key,
+        api_base=args.LLM_api_base,
+        system_prompt=system_prompt,
+        temperature=args.LLM_temperature,
+        example_prompt=example_prompt,
+        args=args,
+        action_description=action_description,
+    )
     agent_test(gpt_agent, env, args=args)
-
 
 
 def prompt1_worker(input_args):
@@ -109,10 +119,16 @@ def prompt1_worker(input_args):
     example_prompt = [example_input_prompt, example_output_prompt]
 
     # 创建并测试random agent
-    gpt_agent = Prompt1_Agent(model_name=args.LLM_model_name, api_key=args.LLM_api_key,
-                              api_base=args.LLM_api_base, system_prompt=system_prompt,
-                              temperature=args.LLM_temperature, example_prompt=example_prompt,
-                              args=args, action_description=action_description)
+    gpt_agent = Prompt1_Agent(
+        model_name=args.LLM_model_name,
+        api_key=args.LLM_api_key,
+        api_base=args.LLM_api_base,
+        system_prompt=system_prompt,
+        temperature=args.LLM_temperature,
+        example_prompt=example_prompt,
+        args=args,
+        action_description=action_description,
+    )
     agent_test(gpt_agent, env, args=args)
 
 
@@ -132,17 +148,23 @@ def gemini_worker(input_args):
     # 假设这些参数和设置对于random agent仍然有用
     sc2prompt = StarCraftIIPrompt_V4(race=args.player_race, K="5", action_dict=action_dict)  # prompt v4
 
-
     system_prompt, example_input_prompt, example_output_prompt = sc2prompt.generate_prompts()
     example_input_prompt.format(K_1=4)
     example_prompt = [example_input_prompt, example_output_prompt]
 
     # 创建并测试random agent
-    gemini_agent = GeminiAgent(model_name=args.LLM_model_name, api_key=args.LLM_api_key,
-                             api_base=args.LLM_api_base, system_prompt=system_prompt,
-                             temperature=args.LLM_temperature, example_prompt=example_prompt,
-                             args=args, action_description=action_description)
+    gemini_agent = GeminiAgent(
+        model_name=args.LLM_model_name,
+        api_key=args.LLM_api_key,
+        api_base=args.LLM_api_base,
+        system_prompt=system_prompt,
+        temperature=args.LLM_temperature,
+        example_prompt=example_prompt,
+        args=args,
+        action_description=action_description,
+    )
     agent_test(gemini_agent, env, args=args)
+
 
 """
 Due to package version issues, the following agents are not available for testing.
@@ -192,17 +214,23 @@ def claude2_worker(input_args):
     # 假设这些参数和设置对于random agent仍然有用
     sc2prompt = StarCraftIIPrompt_V4(race=args.player_race, K="5", action_dict=action_dict)  # prompt v4
 
-
     system_prompt, example_input_prompt, example_output_prompt = sc2prompt.generate_prompts()
     example_input_prompt.format(K_1=4)
     example_prompt = [example_input_prompt, example_output_prompt]
 
     # 创建并测试random agent
-    claude2_agent = Claude2Agent(model_name=args.LLM_model_name, api_key=args.LLM_api_key,
-                             api_base=args.LLM_api_base, system_prompt=system_prompt,
-                             temperature=args.LLM_temperature, example_prompt=example_prompt,
-                             args=args, action_description=action_description)
+    claude2_agent = Claude2Agent(
+        model_name=args.LLM_model_name,
+        api_key=args.LLM_api_key,
+        api_base=args.LLM_api_base,
+        system_prompt=system_prompt,
+        temperature=args.LLM_temperature,
+        example_prompt=example_prompt,
+        args=args,
+        action_description=action_description,
+    )
     agent_test(claude2_agent, env, args=args)
+
 
 def qwen7b_worker(input_args):
     """
@@ -220,17 +248,23 @@ def qwen7b_worker(input_args):
     # 假设这些参数和设置对于random agent仍然有用
     sc2prompt = StarCraftIIPrompt_V4(race=args.player_race, K="5", action_dict=action_dict)  # prompt v4
 
-
     system_prompt, example_input_prompt, example_output_prompt = sc2prompt.generate_prompts()
     example_input_prompt.format(K_1=4)
     example_prompt = [example_input_prompt, example_output_prompt]
 
     # 创建并测试random agent
-    qwen7b_agent = Qwen7bAgent(model_name=args.LLM_model_name, api_key=args.LLM_api_key,
-                             api_base=args.LLM_api_base, system_prompt=system_prompt,
-                             temperature=args.LLM_temperature, example_prompt=example_prompt,
-                             args=args, action_description=action_description)
+    qwen7b_agent = Qwen7bAgent(
+        model_name=args.LLM_model_name,
+        api_key=args.LLM_api_key,
+        api_base=args.LLM_api_base,
+        system_prompt=system_prompt,
+        temperature=args.LLM_temperature,
+        example_prompt=example_prompt,
+        args=args,
+        action_description=action_description,
+    )
     agent_test(qwen7b_agent, env, args=args)
+
 
 def llama2_7b_worker(input_args):
     """
@@ -248,16 +282,21 @@ def llama2_7b_worker(input_args):
     # 假设这些参数和设置对于random agent仍然有用
     sc2prompt = StarCraftIIPrompt_V4(race=args.player_race, K="5", action_dict=action_dict)  # prompt v4
 
-
     system_prompt, example_input_prompt, example_output_prompt = sc2prompt.generate_prompts()
     example_input_prompt.format(K_1=4)
     example_prompt = [example_input_prompt, example_output_prompt]
 
     # 创建并测试random agent
-    llama2_agent = Llama2_Agent(model_name=args.LLM_model_name, api_key=args.LLM_api_key,
-                             api_base=args.LLM_api_base, system_prompt=system_prompt,
-                             temperature=args.LLM_temperature, example_prompt=example_prompt,
-                             args=args, action_description=action_description)
+    llama2_agent = Llama2_Agent(
+        model_name=args.LLM_model_name,
+        api_key=args.LLM_api_key,
+        api_base=args.LLM_api_base,
+        system_prompt=system_prompt,
+        temperature=args.LLM_temperature,
+        example_prompt=example_prompt,
+        args=args,
+        action_description=action_description,
+    )
     agent_test(llama2_agent, env, args=args)
 
 
@@ -277,14 +316,19 @@ def APU_worker(input_args):
     # 假设这些参数和设置对于random agent仍然有用
     sc2prompt = StarCraftIIPrompt_V4(race=args.player_race, K="5", action_dict=action_dict)  # prompt v4
 
-
     system_prompt, example_input_prompt, example_output_prompt = sc2prompt.generate_prompts()
     example_input_prompt.format(K_1=4)
     example_prompt = [example_input_prompt, example_output_prompt]
 
     # 创建并测试random agent
-    apu_agent = APUAgent(model_name=args.LLM_model_name, api_key=args.LLM_api_key,
-                             api_base=args.LLM_api_base, system_prompt=system_prompt,
-                             temperature=args.LLM_temperature, example_prompt=example_prompt,
-                             args=args, action_description=action_description)
+    apu_agent = APUAgent(
+        model_name=args.LLM_model_name,
+        api_key=args.LLM_api_key,
+        api_base=args.LLM_api_base,
+        system_prompt=system_prompt,
+        temperature=args.LLM_temperature,
+        example_prompt=example_prompt,
+        args=args,
+        action_description=action_description,
+    )
     agent_test(apu_agent, env, args=args)
